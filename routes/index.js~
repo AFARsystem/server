@@ -1,0 +1,22 @@
+//Twilio
+var logfmt = require("logfmt");
+var http = require("http");
+var twilio = require("twilio");
+var TWILIO_SID = "AC65713b161d8e4fa2be27a4dd77bf5a60";
+var TWILIO_AUTH = "6c2747b860112eb7770cfe6741f3b727";
+
+exports.sendText = function(number,message){
+     var client = new twilio.RestClient(TWILIO_SID,TWILIO_AUTH);
+    client.messages.create({
+	to: number,
+        from:'+19292442978',
+        body: message
+    }, function(error, message) {
+        if (error) {
+            console.log(error.message);
+        }
+    });
+
+}
+
+exports.receiveText

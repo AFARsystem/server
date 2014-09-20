@@ -11,9 +11,8 @@ var server = app.listen(8000, function() {
     console.log("Listening on port %d", server.address().port)
 })
 
-//Twilio
-var logfmt = require("logfmt");
-var twilio = require("twilio");
+//Twilio things from routes.
+var routes = require("./routes");
 
 //Password encryption
 var bcrypt = require("bcrypt-nodejs");
@@ -32,11 +31,6 @@ app.get("/register", function(req, res){
 
 app.post("/newuser", function(req, res){
     console.log(req.body);
-/*
-    db.users.count({"username":req.body.username}, function(err,count){
-	console.log(count);
-    });
-*/
     db.users.find({"username":req.body.username}, function(err,docs){
 	console.log(docs);
     });
@@ -55,17 +49,10 @@ app.post("/newuser", function(req, res){
 })
 
 app.post('/sendtext', function(req, res){
-    var client = new twilio.RestClient("AC65713b161d8e4fa2be27a4dd77bf5a60", "6c2747b860112eb7770cfe6741f3b727");
-    client.messages.create({
-	to: "+1"+req.body.phoneNumber,
-        from:'+19292442978',
-        body:"Hello "+req.body.name+", your meal is ready."
-    }, function(error, message) {
-        if (error) {
-            console.log(error.message);
-        }
-    });
+   
 });
+
+app.post('/sms', routes.receiveText);
 
 
 app.use(express.static(__dirname+'/public/'));

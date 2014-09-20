@@ -5,6 +5,7 @@ window.onload = function(){
 		var firstname = $("#firstname").val();
 		var lastname = $("#lastname").val();
 		var username = $("#username").val();
+		var password = $("#password").val();
 		var number = $("#number").val();
 		var email = $("#email").val();
 
@@ -12,6 +13,7 @@ window.onload = function(){
 		    "firstname" : firstname,
 		    "lastname" : lastname,
 		    "username" : username,
+		    "password" : password,
 		    "number" : number,
 		    "email" : email
 		};
