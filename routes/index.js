@@ -4,7 +4,36 @@ var http = require("http");
 var twilio = require("twilio");
 var config = require("../config");
 
-module.exports.sendText = function(number,message){
+//Mongodb
+var dburl = "mongodb://localhost/AFAR"
+var collections = ['users'];
+var db = require("mongojs").connect(dburl, collections);
+
+function processMessage(s){
+    var finalString="";
+    var arr = s.trim().split("\n");
+    
+    if(arr.shift()==="swagmaster2000"){
+	var location = arr.shift();
+	var city = arr.shift();
+	var detail = arr.shift();
+	var number = arr.shift();
+
+	finalString+= 'EMERGENCY: ' + detail + '\n';
+	finalString+= "LOCATION: "+location+"\n";
+	finalString+= "CONTACT: "+number;
+	sendDistress(finalString,city);
+    }else{
+	finalString = "Please don't fool around with this stuff; this is srs business.";
+	return finalString;
+    }
+
+    return "Your emergency distress call has been sent out.";
+    
+    //If the first element of the array is swagmaster, then the input message was an emergency.
+}
+
+function sendText(number,message){
      var client = new twilio.RestClient(config.twilio.sid,config.twilio.auth);
     client.messages.create({
 	to: number,
@@ -18,20 +47,45 @@ module.exports.sendText = function(number,message){
 
 }
 
+function sendDistress(message, city){
+    db.users.find({"city":city}, function(err, docs){
+	if(err){
+	    console.log("There was an error");
+
+	} else {
+	    
+	    for(var x=0;x<docs.length;x++){
+		sendText(docs[x].number, message);
+	    }
+	}
+    })
+}
+
+module.exports.processUser = function(req, res){
+    console.log(req.body);
+
+    db.users.find({"number":req.body.number}, function(err, docs){
+	if(docs.length==0){
+	    console.log("success");
+	    db.users.save(req.body);
+	    res.send("Success");
+	} else {
+	    res.send("That username has been updated already,");
+	    console.log("Wat");
+	}
+    });
+};
+
 module.exports.receiveText = function(req, res){
     if (twilio.validateExpressRequest(req, config.twilio.auth, {url: config.twilio.smsWebhook})) {
 	res.header('Content-Type', 'text/xml');
-	var body = req.param('Body').trim();
+	var body = req.param('Body');
 	var from = req.param('From');
 
-	console.log(body);
-	console.log(from);
-
+	sendText(from, processMessage(body));
     }
 
     else {
         res.statusCode = 403;
     }
-
-
 }

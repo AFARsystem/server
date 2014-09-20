@@ -14,9 +14,6 @@ var server = app.listen(8000, function() {
 //Twilio things from routes.
 var routes = require("./routes");
 
-//Password encryption
-var bcrypt = require("bcrypt-nodejs");
-
 //Include the body-parser middlewear
 var bodyParser = require("body-parser");
 app.use(bodyParser());
@@ -29,9 +26,13 @@ app.get("/register", function(req, res){
     res.sendfile("./public/index.html")
 })
 
+app.post("/newuser", routes.processUser);
+
+/*
 app.post("/newuser", function(req, res){
     console.log(req.body);
-    db.users.find({"username":req.body.username}, function(err,docs){
+    
+    db.users.find({"number":req.body.number}, function(err,docs){
 	console.log(docs);
     });
     db.users.find({"username":req.body.username}, function(err,docs){
@@ -47,6 +48,7 @@ app.post("/newuser", function(req, res){
 
     })
 })
+*/
 
 app.post('/sendtext', function(req, res){
    
