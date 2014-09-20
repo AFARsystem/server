@@ -2,11 +2,10 @@
 var logfmt = require("logfmt");
 var http = require("http");
 var twilio = require("twilio");
-var TWILIO_SID = "AC65713b161d8e4fa2be27a4dd77bf5a60";
-var TWILIO_AUTH = "6c2747b860112eb7770cfe6741f3b727";
+var config = require("../config");
 
-exports.sendText = function(number,message){
-     var client = new twilio.RestClient(TWILIO_SID,TWILIO_AUTH);
+module.exports.sendText = function(number,message){
+     var client = new twilio.RestClient(config.twilio.sid,config.twilio.auth);
     client.messages.create({
 	to: number,
         from:'+19292442978',
@@ -19,11 +18,11 @@ exports.sendText = function(number,message){
 
 }
 
-exports.receiveText = function(req, res){
-    if (twilio.validateExpressRequest(request, config.twilio.key, {url: config.twilio.smsWebhook}) || config.disableTwilioSigCheck) {
-	response.header('Content-Type', 'text/xml');
-	var body = request.param('Body').trim();
-	var from = request.param('From');
+module.exports.receiveText = function(req, res){
+    if (twilio.validateExpressRequest(req, config.twilio.auth, {url: config.twilio.smsWebhook})) {
+	res.header('Content-Type', 'text/xml');
+	var body = req.param('Body').trim();
+	var from = req.param('From');
 
 	console.log(body);
 	console.log(from);
@@ -31,7 +30,7 @@ exports.receiveText = function(req, res){
     }
 
     else {
-        response.statusCode = 403;
+        res.statusCode = 403;
     }
 
 

@@ -18,7 +18,7 @@ window.onload = function(){
 		    "email" : email
 		};
 
-		$.post("http://localhost:8000/newuser",
+		$.post("http://afar.jackcook.us/newuser",
 	       data,
 	       function(result){
 		   	console.log("pls");
