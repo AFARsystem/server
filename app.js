@@ -1,15 +1,22 @@
 
 //mongo jazz
-var dburl = "mongodb://localhost/Users/LCAIR5/Desktop/Code/knokno/data/db/kkdb";
-var collections = ["users","surveys"];
+var dburl = "mongodb://localhost/AFAR";
+var collections = ["users"];
 var db = require("mongojs").connect(dburl, collections);
 
 //build and start up the server.
 var express = require("express");
 var app = express();
 var server = app.listen(8000, function() {
-	console.log("Listening on port %d", server.address().port)
+    console.log("Listening on port %d", server.address().port)
 })
+
+//Twilio
+var logfmt = require("logfmt");
+var twilio = require("twilio");
+
+//Password encryption
+var bcrypt = require("bcrypt-nodejs");
 
 //Include the body-parser middlewear
 var bodyParser = require("body-parser");
@@ -17,50 +24,48 @@ app.use(bodyParser());
 app.set("view options", {layout: false});
 
 app.get("/", function(req, res){
-	res.redirect("/landing");
+    res.redirect("/register");
 })
-app.get("/landing", function(req, res){
-	res.sendfile("./public/index.html")
+app.get("/register", function(req, res){
+    res.sendfile("./public/index.html")
 })
 
-app.post("/auth/new-user", function(req, res){
-	if( (!req.body.name || !req.body.email) || (!req.body.interests || !req.body.experiences)){
-		res.send("One of the forms wasn't filled out.");
-	}else{
-		var searchObject = {
-			name: req.body.name,
-			email: req.body.email,
-			interests: req.body.interests,
-			experiences: req.body.experiences
-		}
-
-
-		try{
-			db.surveys.find({"email": req.body.email}).insert( searchObject, function(err, saved){
-				if(err || !saved){
-					res.send("Something went wrong.");
-					console.log("Something went awry");
-				}else{
-					res.send("Update successful!")
-				}
-			});
-
-		}catch(err){
-			db.surveys.insert(searchObject, function(err, saved){
-				if(err || !saved){
-					res.send("Something went wrong.");
-				}else{
-					res.send("Update successful");
-				}
-			});
-		}
+app.post("/newuser", function(req, res){
+    console.log(req.body);
+/*
+    db.users.count({"username":req.body.username}, function(err,count){
+	console.log(count);
+    });
+*/
+    db.users.find({"username":req.body.username}, function(err,docs){
+	console.log(docs);
+    });
+    db.users.find({"username":req.body.username}, function(err,docs){
+	if(docs.length===0){
+	    db.users.save(req.body);
+	    res.send("Success!");
+	    console.log("pls");
+	    
+	} else {
+	    res.send("That username has been taken already.");
+	    console.log("wat");
 	}
 
-	console.log("name: " + req.body.name);
-	console.log("email: " + req.body.email);
-	console.log("Interested in: " + req.body.interests);
-	console.log("Willing to teach: " + req.body.experiences);
+    })
 })
+
+app.post('/sendtext', function(req, res){
+    var client = new twilio.RestClient("AC65713b161d8e4fa2be27a4dd77bf5a60", "6c2747b860112eb7770cfe6741f3b727");
+    client.messages.create({
+	to: "+1"+req.body.phoneNumber,
+        from:'+19292442978',
+        body:"Hello "+req.body.name+", your meal is ready."
+    }, function(error, message) {
+        if (error) {
+            console.log(error.message);
+        }
+    });
+});
 
 
 app.use(express.static(__dirname+'/public/'));

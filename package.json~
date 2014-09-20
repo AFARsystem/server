@@ -1,23 +1,22 @@
 {
   "name": "AFAR",
   "version": "0.0.1",
-  "description": "Aid in a minute.",
-  "main": "app.js",
+  "description": "Heroku don't fail me now",
+  "main": "web.js",
   "scripts": {
-    "test": "node app.js"
+    "test": "node web.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AFARsystem/server"
+    "url": "https://github.com/genjinoguchi/myfirstheroku.git"
   },
-  "author": "htn-dream-team",
+  "author": "genji",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AFARsystem/server/issues"
+    "url": "https://github.com/genjinoguchi/myfirstheroku/issues"
   },
-  "homepage": "https://github.com/AFARsystem/server",
+  "homepage": "https://github.com/genjinoguchi/myfirstheroku",
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.6.2",
     "express": "^4.8.2",
     "logfmt": "^1.1.2",
