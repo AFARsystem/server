@@ -20,10 +20,10 @@ app.use(bodyParser());
 app.set("view options", {layout: false});
 
 app.get("/", function(req, res){
-    res.redirect("/register");
+    res.sendfile("./public/index.html");
 })
 app.get("/register", function(req, res){
-    res.sendfile("./public/index.html")
+    res.sendfile("./public/register.html")
 })
 
 app.post("/newuser", routes.processUser);
