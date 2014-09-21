@@ -1,29 +1,76 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>AFAR|REGISTER</title>
+<head>
 
-    <!--Scripts-->
-    <script type="text/javascript" src="./res/scripts/jquery-1.11.1.min.js"></script>
+    <title>AFAR | REGISTER</title>
+
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js?ver=1.8.3'></script>
     <script type="text/javascript" src="./res/scripts/main.js"></script>
+    <link rel="shortcut icon" href="http://devchuk.github.io/res/img/favicon.ico">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/forms-min.css">
+    <link rel="stylesheet" href="http://devchuk.github.io/res/css/main.css">
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700|Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://devchuk.github.io/res/css/buttons.css">
 
-    <!--Styling-->
-    <link rel="stylesheet" type="text/css" href="./res/style/main.css">
-      
-  </head>
+</head>
 
-  <body>
-    <h1><center>AFAR|REGISTER</center></h1>
+<body>
+  <header id="home"></header>
+  <br>
+  <center>
+    <div id="page" class="clearfix" style="margin:6em">    
+      <div id="wrap" style="max-width:1300px;text-align:left">
+        <div id="content" class="full-width front-content">
+            <div id="featured-box">
+              <header class="single-entry-header">
+                <h1 style="font-size:6em;font-weight:bold;letter-spacing: 0.07em;">REGISTER</h1>
+                <hr>
+                <br>
+                <form class="pure-form">
+                  <fieldset class="pure-group">
+                  <div class="form-group">
+                    <input name="First Name" type="text" class="form-control" id="first" placeholder="First Name">
+                  </div>
+
+                  <div class="form-group">
+                    <input name="Last Name" type="text" class="form-control" id="lastname" placeholder="Last Name">
+                  </div>
+
+                  <div class="form-group">
+                    <input name="Phone Number" type="text" class="form-control" id="number" placeholder="Phone Number">
+                  </div>
+
+                  <div class="form-group">
+                    <input name="City" type="text" class="form-control" id="city" placeholder="City">
+                  </div>
+                </fieldset>
+                  
+                  <button type="hidden" name="_next" value="http://devchuk.github.io/sent.html#sent" type="submit" id="send-data"class="button button-border-caution button-large">Submit</button>
+                </form>
+                <br><br><br><br><br>
+              </header><!-- end single-entry-header -->   
+            </div> <!--#feature-->
+          <div class="clear"></div>       
+        </div><!-- end content -->
+      </div>
+    </div>
+  </center>
+  <footer id="footer" style="background-color:#de3230;clear:both;text-align:center;" class="container--wide">
     
-    First Name: <input type="text" id="firstname">
-    Last Name: <input type="text" id="lastname">
-    <br>
-    Phone Number: <input type="tel" id="number">
-    <br>
-    City: <input type="text" id="city">
+    <a class="brand header__link" style="padding-right: 1em;">
+      &copy; 2014 AFAR
+    <a class="footer-up" style="padding-left:17px;text-align:right;display:block;float:right;color:#fff;text-decoration:none;border:0;vertical-align: baseline;"href="#home">
+      <i class="fa fa-arrow-up fa-2x"></i>
+    </a>
+  </footer>
 
-    <button id="send-data">Send</button>
 
-  </body>
 
+
+
+  <script type='text/javascript' src='http://devchuk.github.io/res/js/js.js'></script>
+  <script type='text/javascript' src='http://devchuk.github.io/res/js/imagesloaded.js'></script>
+  <script type='text/javascript' src='http://devchuk.github.io/res/js/helper.js'></script>
+</body>
 </html>
