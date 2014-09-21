@@ -9,18 +9,21 @@ var dburl = "mongodb://localhost/AFAR"
 var collections = ['users'];
 var db = require("mongojs").connect(dburl, collections);
 
-function processMessage(s){
+//Google Maps
+var gm = require("googlemaps");
+
+function processMessage(s, number){
     var finalString="";
     var arr = s.trim().split("\n");
     
     if(arr.shift()==="swagmaster2000"){
-	var location = arr.shift();
+	var address = arr.shift();
 	var city = arr.shift();
+	var country = arr.shift();
 	var detail = arr.shift();
-	var number = arr.shift();
 
 	finalString+= 'EMERGENCY: ' + detail + '\n';
-	finalString+= "LOCATION: "+location+"\n";
+	finalString+= "LOCATION: "+address+", "+city+", "+country+"\n";
 	finalString+= "CONTACT: "+number;
 	sendDistress(finalString,city);
     }else{
@@ -82,7 +85,7 @@ module.exports.receiveText = function(req, res){
 	var body = req.param('Body');
 	var from = req.param('From');
 
-	sendText(from, processMessage(body));
+	sendText(from, processMessage(body, from));
     }
 
     else {
