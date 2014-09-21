@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AFAR|REGISTER</title>
+
+    <!--Scripts-->
+    <script type="text/javascript" src="./res/scripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="./res/scripts/main.js"></script>
+
+    <!--Styling-->
+    <link rel="stylesheet" type="text/css" href="./res/style/main.css">
+      
+  </head>
+
+  <body>
+    <h1><center>AFAR|REGISTER</center></h1>
+    
+    First Name: <input type="text" id="firstname">
+    Last Name: <input type="text" id="lastname">
+    <br>
+    Phone Number: <input type="tel" id="number">
+    <br>
+    City: <input type="text" id="city">
+
+    <button id="send-data">Send</button>
+
+  </body>
+
+</html>
