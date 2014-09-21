@@ -8,12 +8,16 @@ config.twilio.smsWebHook = "http://afar.jackcook.us/sms";
 
 
 config.countries = {
+    "China" :{
+	"emergencyNumber":"110",
+	"language":"zh-CN"
+    },
     "Canada" : {
-	"emergencyNumber":"911",
+	"emergencyNumber":"3476955532", //Usually 911
 	"language":"en-CA"
     },
     "United States" : {
-	"emergencyNumber":"911",
+	"emergencyNumber":"3476955532", //Usually 911
 	"language":"en-US"
     },
     "Mexico" : {
@@ -47,7 +51,8 @@ config.countries = {
     "Denmark" : {
 	"emergencyNumber":"112",
 	"language":"da-DK"
-};
+    }
+}
 
 
 module.exports = config;

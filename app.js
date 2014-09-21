@@ -28,6 +28,8 @@ app.get("/register", function(req, res){
 
 app.post("/newuser", routes.processUser);
 
+app.post("/emergencytwiml", routes.getTwiml);
+
 /*
 app.post("/newuser", function(req, res){
     console.log(req.body);
